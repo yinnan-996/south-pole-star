@@ -1,4 +1,8 @@
-package south.pole.star.api.annotation;
+package south.pole.star.api.spring.annotation;
+
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,5 +16,9 @@ package south.pole.star.api.annotation;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+@Import(SouthStarConfigRegistrar.class)
 public @interface EnableSouthStar {
 }

@@ -2,7 +2,7 @@ package south.pole.star.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import south.pole.star.api.annotation.EnableSouthStar;
+import south.pole.star.api.spring.annotation.EnableSouthStar;
 
 @EnableSouthStar
 @SpringBootApplication
