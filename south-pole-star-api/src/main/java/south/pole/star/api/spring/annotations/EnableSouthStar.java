@@ -1,6 +1,7 @@
-package south.pole.star.api.spring.annotation;
+package south.pole.star.api.spring.annotations;
 
 import org.springframework.context.annotation.Import;
+import south.pole.star.api.spring.beanfactory.SouthStarRegistrar;
 
 import java.lang.annotation.*;
 
@@ -19,6 +20,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(SouthStarConfigRegistrar.class)
+@Import(SouthStarRegistrar.class)
 public @interface EnableSouthStar {
 }
