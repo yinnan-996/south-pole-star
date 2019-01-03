@@ -34,10 +34,11 @@ public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistry
         if(log.isDebugEnabled()){
             log.info("SouthStarBeanFactoryPostProcessor postProcessBeanFactory begin ");
         }
-        String processorId = southStarConfigurationProcessorHandler.getProcessorId();
+        String processorId = "default";
         AbstractSouthStarConfigurationProcessor abstractSouthStarConfigurationProcessor = AbstractSouthStarConfigurationProcessor.getInstance(processorId);
         if(log.isDebugEnabled()){
             log.info("SouthStarBeanFactoryPostProcessor abstractSouthStarConfigurationProcessor begin ");
+//            abstractSouthStarConfigurationProcessor.getInfo();
         }
     }
 
