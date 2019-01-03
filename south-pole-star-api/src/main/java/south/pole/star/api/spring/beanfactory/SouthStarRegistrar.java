@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import south.pole.star.api.spring.annotations.EnableSouthStar;
+import south.pole.star.api.spring.config.SouthStarConfigurationProcessorHandler;
 import south.pole.star.api.spring.utils.BeanRegistrationUtil;
 
 /**
