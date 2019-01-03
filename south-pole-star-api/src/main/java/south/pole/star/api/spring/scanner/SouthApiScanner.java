@@ -44,7 +44,7 @@ public class SouthApiScanner {
     public synchronized static SouthApiScanner getInstance() {
         if (softReference == null || softReference.get() == null) {
             SouthApiScanner southApiScanner = new SouthApiScanner();
-            softReference = new SoftReference<>(southApiScanner);
+            softReference = new SoftReference<SouthApiScanner>(southApiScanner);
         }
         return softReference.get();
     }

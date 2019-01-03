@@ -22,7 +22,7 @@ public class DefaultSouthStarConfigurationProcessor extends AbstractSouthStarCon
      * 初始化
      */
     public DefaultSouthStarConfigurationProcessor(){
-        regist(DEFAULT, this);
+        register(DEFAULT, this);
     }
 
 
