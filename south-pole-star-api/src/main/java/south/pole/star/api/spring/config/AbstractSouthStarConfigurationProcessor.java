@@ -20,7 +20,7 @@ public abstract class AbstractSouthStarConfigurationProcessor {
     /**
      * 抽象工厂Map
      */
-    private static Map<String,AbstractSouthStarConfigurationProcessor> IMPL = new HashMap<>();
+    private static Map<String,AbstractSouthStarConfigurationProcessor> IMPL = new HashMap<String, AbstractSouthStarConfigurationProcessor>();
 
     /**
      * 获取对应的实例化类
@@ -36,7 +36,7 @@ public abstract class AbstractSouthStarConfigurationProcessor {
      * @param productType
      * @param instance
      */
-    static void regist(String productType,AbstractSouthStarConfigurationProcessor instance){
+    static void register(String productType,AbstractSouthStarConfigurationProcessor instance){
         IMPL.put(productType,instance);
     }
 

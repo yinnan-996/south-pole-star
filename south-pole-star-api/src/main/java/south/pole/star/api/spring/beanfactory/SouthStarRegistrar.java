@@ -25,7 +25,6 @@ import south.pole.star.api.spring.utils.BeanRegistrationUtil;
 @Slf4j
 public class SouthStarRegistrar implements ImportBeanDefinitionRegistrar {
 
-    @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         AnnotationAttributes attributes = AnnotationAttributes.fromMap(importingClassMetadata
                 .getAnnotationAttributes(EnableSouthStar.class.getName()));

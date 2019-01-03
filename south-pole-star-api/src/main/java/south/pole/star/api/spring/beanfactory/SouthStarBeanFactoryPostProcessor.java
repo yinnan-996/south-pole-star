@@ -10,6 +10,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import south.pole.star.api.spring.config.AbstractSouthStarConfigurationProcessor;
+import south.pole.star.api.spring.config.SouthStarConfigurationProcessorHandler;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,13 +27,13 @@ import south.pole.star.api.spring.config.AbstractSouthStarConfigurationProcessor
 @Slf4j
 public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
+    @Autowired
+    private SouthStarConfigurationProcessorHandler southStarConfigurationProcessorHandler;
 
-    @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         if(log.isDebugEnabled()){
             log.info("SouthStarBeanFactoryPostProcessor postProcessBeanFactory begin ");
         }
-        SouthStarConfigurationProcessorHandler southStarConfigurationProcessorHandler = new SouthStarConfigurationProcessorHandler();
         String processorId = southStarConfigurationProcessorHandler.getProcessorId();
         AbstractSouthStarConfigurationProcessor abstractSouthStarConfigurationProcessor = AbstractSouthStarConfigurationProcessor.getInstance(processorId);
         if(log.isDebugEnabled()){
@@ -40,19 +41,10 @@ public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistry
         }
     }
 
-    @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         if(log.isDebugEnabled()){
             log.info("SouthStarBeanFactoryPostProcessor postProcessBeanDefinitionRegistry begin");
         }
     }
 
-    @ConfigurationProperties(prefix = "south.star.config.server", ignoreUnknownFields = false)
-    @PropertySource("classpath:application.properties")
-    @Data
-    protected class SouthStarConfigurationProcessorHandler {
-
-        private String processorId;
-
-    }
 }
