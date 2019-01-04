@@ -1,15 +1,12 @@
 package south.pole.star.api.spring.beanfactory;
 
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import south.pole.star.api.spring.config.AbstractSouthStarConfigurationProcessor;
+import south.pole.star.api.spring.config.SouthStarConfigurationProcessorHandler;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,12 +44,4 @@ public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistry
         }
     }
 
-    @ConfigurationProperties(prefix = "south.star.config.server", ignoreUnknownFields = false)
-    @PropertySource("classpath:application.properties")
-    @Data
-    protected class SouthStarConfigurationProcessorHandler {
-
-        private String processorId;
-
-    }
 }
