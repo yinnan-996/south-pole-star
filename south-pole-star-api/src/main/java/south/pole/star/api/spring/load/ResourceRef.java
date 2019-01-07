@@ -19,6 +19,8 @@ import java.util.Properties;
  */
 public class ResourceRef implements Comparable<ResourceRef> {
 
+    private boolean api;
+
     private Properties properties = new Properties();
 
     private Resource resource;
@@ -39,6 +41,14 @@ public class ResourceRef implements Comparable<ResourceRef> {
 
     public String[] getModifiers() {
         return modifiers;
+    }
+
+    public boolean isApi() {
+        return api;
+    }
+
+    public void setApi(boolean api) {
+        this.api = api;
     }
 
     @Override

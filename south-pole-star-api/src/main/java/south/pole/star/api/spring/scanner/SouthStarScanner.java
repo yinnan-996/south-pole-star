@@ -25,9 +25,9 @@ import java.util.List;
  * @since 1.0-SNAPSHOT
  */
 @Slf4j
-public class SouthApiScanner {
+public class SouthStarScanner {
 
-    private static SoftReference<SouthApiScanner> softReference;
+    private static SoftReference<SouthStarScanner> softReference;
 
     protected Date createTime = new Date();
 
@@ -41,10 +41,10 @@ public class SouthApiScanner {
      * 初始化
      * @return
      */
-    public synchronized static SouthApiScanner getInstance() {
+    public synchronized static SouthStarScanner getInstance() {
         if (softReference == null || softReference.get() == null) {
-            SouthApiScanner southApiScanner = new SouthApiScanner();
-            softReference = new SoftReference<SouthApiScanner>(southApiScanner);
+            SouthStarScanner southApiScanner = new SouthStarScanner();
+            softReference = new SoftReference<SouthStarScanner>(southApiScanner);
         }
         return softReference.get();
     }
