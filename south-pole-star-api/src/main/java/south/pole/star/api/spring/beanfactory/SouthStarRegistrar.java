@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import south.pole.star.api.spring.annotations.EnableSouthStar;
+import south.pole.star.api.spring.config.AbstractSouthStarConfigurationProcessor;
+import south.pole.star.api.spring.config.DefaultSouthStarConfigurationProcessor;
 import south.pole.star.api.spring.config.SouthStarConfigurationProcessorHandler;
 import south.pole.star.api.spring.utils.BeanRegistrationUtil;
 
@@ -31,6 +33,7 @@ public class SouthStarRegistrar implements ImportBeanDefinitionRegistrar {
         if(log.isDebugEnabled()) {
             log.info("attributes ={} ", JSONObject.toJSONString(attributes));
         }
+        BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry, DefaultSouthStarConfigurationProcessor.class);
         BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry, SouthStarBeanFactoryPostProcessor.class);
     }
 

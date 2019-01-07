@@ -3,7 +3,6 @@ package south.pole.star.api.spring.utils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import south.pole.star.api.spring.beanfactory.SouthStarBeanFactoryPostProcessor;
 
 import java.util.Map;
 import java.util.Objects;
