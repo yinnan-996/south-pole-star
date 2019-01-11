@@ -17,5 +17,18 @@ import lombok.Data;
 @Data
 public class SouthStarConfigurationProperties {
 
+    /**
+     * 服务方IP地址
+     */
     private String ipAddress;
+
+    /**
+     * 服务方host名称
+     */
+    private String hostName;
+
+    /**
+     * 调用协议
+     */
+    private String protocol;
 }

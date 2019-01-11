@@ -4,6 +4,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+import south.pole.star.api.spring.config.SouthStarConfigurationProperties;
 import south.pole.star.api.spring.invocation.SouthStarApiInvocationHandler;
 
 import java.lang.reflect.Proxy;
@@ -22,6 +23,7 @@ import java.lang.reflect.Proxy;
  */
 public class SouthStarApiFactoryBean implements FactoryBean, InitializingBean {
 
+    private SouthStarConfigurationProperties southStarConfigurationProperties;
 
     private Class<?> objectType;
 

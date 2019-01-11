@@ -1,5 +1,7 @@
 package south.pole.star.api.spring.annotations;
 
+import java.lang.annotation.*;
+
 /**
  * Created by IntelliJ IDEA.
  * Description:  -----所有标注此注解的类都会被南极星自动代理
@@ -12,5 +14,9 @@ package south.pole.star.api.spring.annotations;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
 public @interface SouthStarApi {
+    String config() default "default";
 }
