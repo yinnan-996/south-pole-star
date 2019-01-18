@@ -75,7 +75,7 @@ public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistry
         /** 2、从获取的资源(resources)中，把符合Api的筛选出来，并以URL的形式返回*/
         List<String> urls = findSouthStarApiResources(resources);
 
-        /** 3、从每个URL中找出符合规范的DAO接口，并将之以SouthStarFactoryBean的形式注册到Spring容器中*/
+        /** 3、从每个URL中找出符合规范的API接口，并将之以SouthStarFactoryBean的形式注册到Spring容器中*/
         findSouthStarApiDefinitions(configurableListableBeanFactory, urls);
 
         log.info("[south-star doPostProcessBeanFactory] end ...");
