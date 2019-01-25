@@ -25,6 +25,9 @@
         <module>south-common</module>
         <module>south-provider</module>
         <module>south-netty</module>
+        <module>south-pole-star-scanner</module>
+        <module>south-pole-star-api-test</module>
+        <module>south-pole-star-client-test</module>
     </modules>
 
     <properties>

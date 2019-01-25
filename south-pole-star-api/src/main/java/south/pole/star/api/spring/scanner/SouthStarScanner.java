@@ -1,16 +1,20 @@
 package south.pole.star.api.spring.scanner;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.Assert;
 import south.pole.star.api.spring.annotations.SouthStarApi;
-import south.pole.star.api.spring.load.ResourceRef;
+import south.pole.star.scanner.load.ResourceRef;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,9 +33,9 @@ public class SouthStarScanner {
 
     private static SoftReference<SouthStarScanner> softReference;
 
-    protected Date createTime = new Date();
+    private Date createTime = new Date();
 
-    protected ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+    private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 
     private List<ResourceRef> classesFolderResources;
 
@@ -75,6 +79,72 @@ public class SouthStarScanner {
      * @throws IOException
      */
     public List<ResourceRef> getJarAndClassesFolderResources(String[] scope, String[] except) throws IOException {
-        return new ArrayList<ResourceRef>(1);
+        if (classesFolderResources == null) {
+            log.info("[classesFolder] start to found available classes folders ...");
+            List<ResourceRef> classesFolderResources = new ArrayList<ResourceRef>(1);
+            Enumeration<URL> founds = resourcePatternResolver.getClassLoader().getResources("");
+            while (founds.hasMoreElements()) {
+                URL urlObject = founds.nextElement();
+                if (!"jar".equals(urlObject.getProtocol())) {
+                    log.debug("[classesFolder] Ignored classes folder because "
+                                + "not a file protocol url: " + urlObject);
+                    continue;
+                }
+                String path = urlObject.getPath();
+                Assert.isTrue(path.endsWith("/"),"  ");
+                File file;
+                try {
+                    file = new File(urlObject.toURI());
+                } catch (URISyntaxException e) {
+                    throw new IOException(e);
+                }
+                if (file.isFile()) {
+                    log.debug("[classesFolder] Ignored because not a directory: "
+                                + urlObject);
+                    continue;
+                }
+                Resource resource = new FileSystemResource(file);
+                ResourceRef resourceRef = ResourceRef.toResourceRef(resource);
+                if (null == resourceRef){
+                    continue;
+                }
+                if (classesFolderResources.contains(resourceRef)) {
+                    // 删除重复的地址
+                    log.debug("[classesFolder] remove replicated classes folder: "
+                                + resourceRef);
+                } else {
+                    classesFolderResources.add(resourceRef);
+                    log.debug("[classesFolder] add classes folder: " + resourceRef);
+                }
+            }
+            // 删除含有一个地址包含另外一个地址的
+            Collections.sort(classesFolderResources);
+            List<ResourceRef> toRemove = new LinkedList<ResourceRef>();
+            for (int i = 0; i < classesFolderResources.size(); i++) {
+                ResourceRef ref = classesFolderResources.get(i);
+                String refURI = ref.getResource().getURI().toString();
+                for (int j = i + 1; j < classesFolderResources.size(); j++) {
+                    ResourceRef refj = classesFolderResources.get(j);
+                    String refjURI = refj.getResource().getURI().toString();
+                    if (refURI.startsWith(refjURI)) {
+                        toRemove.add(refj);
+                        log.info("[classesFolder] remove wrapper classes folder: "
+                                    + refj);
+                    } else if (refjURI.startsWith(refURI) && refURI.length() != refjURI.length()) {
+                        toRemove.add(ref);
+                        log.info("[classesFolder] remove wrapper classes folder: "
+                                    + ref);
+                    }
+                }
+            }
+            classesFolderResources.removeAll(toRemove);
+            this.classesFolderResources = new ArrayList<ResourceRef>(classesFolderResources);
+            log.info("[classesFolder] found " + classesFolderResources.size()
+                        + " classes folders: " + classesFolderResources);
+        } else {
+            log.info("[classesFolder] found cached " + classesFolderResources.size()
+                    + " classes folders: " + classesFolderResources);
+        }
+        return Collections.unmodifiableList(classesFolderResources);
     }
 }

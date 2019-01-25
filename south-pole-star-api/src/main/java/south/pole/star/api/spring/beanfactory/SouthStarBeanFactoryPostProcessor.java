@@ -1,5 +1,6 @@
 package south.pole.star.api.spring.beanfactory;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
@@ -11,10 +12,13 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.annotation.ScannedGenericBeanDefinition;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.Resource;
+import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ResourceUtils;
+import south.pole.star.api.spring.annotations.SouthStarApi;
 import south.pole.star.api.spring.config.SouthStarConfigurationProcessorHandler;
-import south.pole.star.api.spring.load.ResourceRef;
+import south.pole.star.scanner.load.ResourceRef;
 import south.pole.star.api.spring.scanner.ApiComponentProvider;
 import south.pole.star.api.spring.scanner.SouthStarScanner;
 
@@ -38,7 +42,7 @@ import java.util.Set;
  * @since 1.0-SNAPSHOT
  */
 @Slf4j
-public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor ,Ordered {
 
     @Autowired
     private SouthStarConfigurationProcessorHandler southStarConfigurationProcessorHandler;
@@ -71,12 +75,18 @@ public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistry
         log.info("[south-star doPostProcessBeanFactory] starting ...");
         /** 1、获取标注未南极星标志的资源(ResourceRef)*/
         final List<ResourceRef> resources = findSouthStarResources();
+        log.info("name ={}", (Object[]) configurableListableBeanFactory.getBeanNamesForAnnotation(SouthStarApi.class));
+        DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
+        log.info("getBeanDefinitionNames ={}", JSONObject.toJSON(defaultListableBeanFactory.getBeanDefinitionNames()));
 
+        log.info("defaultListableBeanFactory ={}", defaultListableBeanFactory.getBeansWithAnnotation(SouthStarApi.class));
         /** 2、从获取的资源(resources)中，把符合Api的筛选出来，并以URL的形式返回*/
         List<String> urls = findSouthStarApiResources(resources);
 
+
         /** 3、从每个URL中找出符合规范的API接口，并将之以SouthStarFactoryBean的形式注册到Spring容器中*/
         findSouthStarApiDefinitions(configurableListableBeanFactory, urls);
+
 
         log.info("[south-star doPostProcessBeanFactory] end ...");
     }
@@ -174,4 +184,8 @@ public class SouthStarBeanFactoryPostProcessor implements BeanDefinitionRegistry
         }
     }
 
+    @Override
+    public int getOrder() {
+        return Ordered.LOWEST_PRECEDENCE;
+    }
 }

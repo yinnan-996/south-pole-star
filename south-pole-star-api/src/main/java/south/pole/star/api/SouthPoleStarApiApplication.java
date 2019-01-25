@@ -16,8 +16,8 @@ import south.pole.star.api.spring.annotations.EnableSouthStar;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
-@EnableSouthStar
 @SpringBootApplication
+@EnableSouthStar
 public class SouthPoleStarApiApplication {
 
     public static void main(String[] args) {
