@@ -11,12 +11,12 @@
 
     <artifactId>south-serialization</artifactId>
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>south.pole.star</groupId>
             <artifactId>south-support</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
 

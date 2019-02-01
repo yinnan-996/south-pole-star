@@ -15,6 +15,8 @@ public class MessageEventHandler extends AbstractEventHandler<MessageEvent<Runna
     @Override
     public void onEvent(MessageEvent<Runnable> runnableMessageEvent) throws Exception {
         LOGGER.info("[MessageEventHandler] WorkHandler consume message");
+        LOGGER.info("[MessageEventHandler] runnableMessageEvent={}",runnableMessageEvent);
+        LOGGER.info("[MessageEventHandler] getMessage={}",runnableMessageEvent.getMessage());
         runnableMessageEvent.getMessage().run();
     }
 

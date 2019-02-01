@@ -2,6 +2,7 @@ package south.pole.star.provider;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import org.slf4j.Logger;
@@ -27,9 +28,9 @@ public class TaskDispatcher<R,T extends AbstractEventHandler> implements Dispatc
 
     private int consumeSize;
 
-    private MessageEventProvider<MessageEvent<R>> messageEventProvider = new MessageEventProvider(disruptor.getRingBuffer());
+    private MessageEventProvider<Runnable> messageEventProvider = null;
 
-    private AbstractEventHandler[] eventHandlers = new AbstractEventHandler[consumeSize];
+    private AbstractEventHandler[] eventHandlers = null;
 
     private static Executor executor = Executors.newCachedThreadPool();
 
@@ -37,9 +38,8 @@ public class TaskDispatcher<R,T extends AbstractEventHandler> implements Dispatc
     public boolean dispatch(R task, int retrySize) {
         int i=0;
         try {
-            MessageEvent messageEvent = new MessageEvent();
-            messageEvent.setMessage(task);
-            messageEventProvider.onData(messageEvent);
+            LOGGER.error("[TaskDispatcher 分配任务],task={},task={}",task.getClass(),task);
+            messageEventProvider.onData((Runnable) task);
         }catch (Exception ex){
             LOGGER.error("[TaskDispatcher 分配任务失败],error={}",ex);
             if(!discard(retrySize,++i)){
@@ -57,30 +57,34 @@ public class TaskDispatcher<R,T extends AbstractEventHandler> implements Dispatc
     }
 
 
-    EventFactory<MessageEvent<Runnable>> eventFactory = new EventFactory<MessageEvent<Runnable>>() {
+    EventFactory<MessageEvent> eventFactory = new EventFactory<MessageEvent>() {
         public MessageEvent newInstance() {
             return new MessageEvent<Runnable>();
         }
     };
 
     public TaskDispatcher(int consumeSize,ThreadFactory threadFactory,Class<T> tls) throws IllegalAccessException, InstantiationException {
-
+        LOGGER.info("[TaskDispatcher] init");
         if(consumeSize>1){
             this.consumeSize = consumeSize;
         }else {
             this.consumeSize = CONSUMER_SIZE;
         }
+        this.eventHandlers = new AbstractEventHandler[consumeSize];
         for (int i=0;i<this.consumeSize;i++){
             T t = tls.newInstance();
             eventHandlers[i] = t;
         }
         this.disruptor =new Disruptor(eventFactory, BUFFER_SIZE,threadFactory,ProducerType.MULTI, new BlockingWaitStrategy());
+        messageEventProvider = new MessageEventProvider((RingBuffer<MessageEvent>) disruptor.getRingBuffer());
+        LOGGER.info("[TaskDispatcher] disruptor={}",disruptor);
         disruptor.handleEventsWithWorkerPool(eventHandlers);
         this.disruptor.start();
     }
 
 
     public void execute(R task,int retrySize){
+        LOGGER.info("[TaskDispatcher] execute,task={}",task);
         if(!dispatch(task,0)){
             if(task instanceof Runnable){
                 executor.execute((Runnable)task);

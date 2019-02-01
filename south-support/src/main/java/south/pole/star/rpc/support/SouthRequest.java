@@ -1,7 +1,11 @@
 package south.pole.star.rpc.support;
 
 
-public class SouthRequest {
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class SouthRequest implements Serializable {
+
 
     private String requestId;  //请求id
     private Class className;  //调用类名
@@ -56,5 +60,17 @@ public class SouthRequest {
 
     public void setVersin(String versin) {
         this.versin = versin;
+    }
+
+    @Override
+    public String toString() {
+        return "SouthRequest{" +
+                "requestId='" + requestId + '\'' +
+                ", className=" + className +
+                ", methodName='" + methodName + '\'' +
+                ", versin='" + versin + '\'' +
+                ", parameterTypes=" + Arrays.toString(parameterTypes) +
+                ", parameters=" + Arrays.toString(parameters) +
+                '}';
     }
 }
