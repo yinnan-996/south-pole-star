@@ -34,7 +34,8 @@ public class SouthHandler extends SimpleChannelInboundHandler<SouthRequest> {
 
 
     private Runnable getTask(ChannelHandlerContext channelHandlerContext,SouthRequest southRequest) {
-        Runnable runnable = new Runnable() {
+        LOGGER.info("[getTask] southRequest={}",southRequest);
+        java.lang.Runnable runnable = new java.lang.Runnable() {
             @Override
             public void run() {
                 Object object =ProxyFactory.invoke(southRequest);
@@ -44,6 +45,7 @@ public class SouthHandler extends SimpleChannelInboundHandler<SouthRequest> {
                 callback(channelHandlerContext,southReponse,southRequest);
             }
         };
+        LOGGER.info("[getTask] runnable={}",runnable);
         return runnable;
     }
 

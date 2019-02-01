@@ -1,6 +1,8 @@
 package south.pole.star.rpc.support;
 
-public class SouthReponse {
+import java.io.Serializable;
+
+public class SouthReponse implements Serializable {
 
     private String requestId;  //对应请求id
     private Exception exception; //失败抛出的异常
@@ -28,5 +30,14 @@ public class SouthReponse {
 
     public void setResult(Object result) {
         this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "SouthReponse{" +
+                "requestId='" + requestId + '\'' +
+                ", exception=" + exception +
+                ", result=" + result +
+                '}';
     }
 }

@@ -25,6 +25,11 @@
         <module>south-common</module>
         <module>south-provider</module>
         <module>south-netty</module>
+        <module>south-regist</module>
+        <module>south-server</module>
+        <module>south-example</module>
+        <module>south-all</module>
+        <module>south-client</module>
         <module>south-pole-star-scanner</module>
         <module>south-pole-star-api-test</module>
         <module>south-pole-star-client-test</module>

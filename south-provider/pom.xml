@@ -28,6 +28,18 @@
             <version>4.0.56.Final</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>south.pole.star</groupId>
+            <artifactId>south-consumer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>south.pole.star</groupId>
+            <artifactId>south-consumer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
