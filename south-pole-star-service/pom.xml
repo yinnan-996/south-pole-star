@@ -6,7 +6,7 @@
         <groupId>south.pole.star</groupId>
         <artifactId>south-pole-star-root</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <artifactId>south-pole-star-service</artifactId>
     <version>1.0-SNAPSHOT</version>

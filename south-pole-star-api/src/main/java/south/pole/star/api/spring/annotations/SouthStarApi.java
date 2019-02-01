@@ -14,9 +14,11 @@ import java.lang.annotation.*;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
 @Documented
 public @interface SouthStarApi {
     String config() default "default";
+
+    String value() default "";
 }

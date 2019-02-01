@@ -30,6 +30,9 @@
         <module>south-example</module>
         <module>south-all</module>
         <module>south-client</module>
+        <module>south-pole-star-scanner</module>
+        <module>south-pole-star-api-test</module>
+        <module>south-pole-star-client-test</module>
     </modules>
 
     <properties>

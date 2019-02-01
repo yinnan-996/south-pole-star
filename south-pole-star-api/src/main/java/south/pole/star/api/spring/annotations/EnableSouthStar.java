@@ -1,6 +1,8 @@
 package south.pole.star.api.spring.annotations;
 
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import south.pole.star.api.spring.beanfactory.SouthStarRegistrar;
 
 import java.lang.annotation.*;
@@ -21,5 +23,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 @Import(SouthStarRegistrar.class)
+@Order(value = Ordered.LOWEST_PRECEDENCE)
 public @interface EnableSouthStar {
 }

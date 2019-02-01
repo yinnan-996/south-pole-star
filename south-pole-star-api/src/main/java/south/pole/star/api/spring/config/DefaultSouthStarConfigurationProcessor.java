@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
-@Service
+@Service(value = "DefaultSouthStarConfigurationProcessor")
 public class DefaultSouthStarConfigurationProcessor extends AbstractSouthStarConfigurationProcessor{
 
     private static final String DEFAULT = "default";
