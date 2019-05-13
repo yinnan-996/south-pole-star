@@ -23,6 +23,5 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 @Import(SouthStarRegistrar.class)
-@Order(value = Ordered.LOWEST_PRECEDENCE)
 public @interface EnableSouthStar {
 }

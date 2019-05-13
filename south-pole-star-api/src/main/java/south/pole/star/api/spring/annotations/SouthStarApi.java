@@ -1,5 +1,7 @@
 package south.pole.star.api.spring.annotations;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.*;
 
 /**
@@ -14,9 +16,11 @@ import java.lang.annotation.*;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
-@Target({ElementType.TYPE})
+ @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Component
+@Inherited
 public @interface SouthStarApi {
     String config() default "default";
 

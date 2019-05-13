@@ -1,5 +1,6 @@
 package south.pole.star.clienttest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import south.pole.star.api.spring.annotations.EnableSouthStar;
@@ -19,6 +20,10 @@ import south.pole.star.api.spring.annotations.EnableSouthStar;
 @SpringBootApplication
 @EnableSouthStar
 public class SouthPoleStarClientApplication {
+
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired(required = false)
+    private south.pole.star.apitest.test test;
 
     public static void main(String[] args) {
         SpringApplication.run(SouthPoleStarClientApplication.class, args);

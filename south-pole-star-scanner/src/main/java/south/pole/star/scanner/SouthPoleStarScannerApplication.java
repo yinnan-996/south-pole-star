@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author yinnan
  * @since 1.0-SNAPSHOT
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class SouthPoleStarScannerApplication {
 
     public static void main(String[] args) {
